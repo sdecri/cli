@@ -9,7 +9,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -127,7 +126,7 @@ public abstract class CommandLineReader<C> {
         
         StringBuilder sb = new StringBuilder("Service was called with the following CLI params:").append(NEW_LINE).append(NEW_LINE);
         for (Option option : cli.getOptions()) {
-            String valueString = option.hasArg() ? cli.getOptionValue(option.getLongOpt()) : StringUtils.EMPTY;
+            String valueString = option.hasArg() ? cli.getOptionValue(option.getLongOpt()) : "";
             sb.append(String.format("'%s'%s'%s'", option.getLongOpt(), separator, valueString)).append(NEW_LINE);
         }
         return sb.toString();

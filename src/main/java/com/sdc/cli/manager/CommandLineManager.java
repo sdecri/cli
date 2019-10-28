@@ -14,7 +14,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -221,7 +220,7 @@ public class CommandLineManager {
 
                 }
                 else
-                    sb.append(String.format("'%s':'%s'", option.getLongOpt(), StringUtils.EMPTY)).append(separator);
+                    sb.append(String.format("'%s':'%s'", option.getLongOpt(), "")).append(separator);
                 
             }
 
