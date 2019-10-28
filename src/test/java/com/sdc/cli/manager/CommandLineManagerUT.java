@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.*;
  * @author Simone De Cristofaro
  * Oct 17, 2019
  */
-public class CommandLineManagerTest {
+public class CommandLineManagerUT {
 
     @Test
     public void testRead() throws CommandLineManagerException {

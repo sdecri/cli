@@ -1,5 +1,5 @@
 /**
- * CommandLineReaderTest.java
+ * CommandLineReaderUT.java
  */
 package com.sdc.cli.reader;
 
@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.*;
  * @author simone
  * Oct 15, 2019
  */
-public class CommandLineReaderTest {
+public class CommandLineReaderUT {
 
     private static final String INTERNAL_OUTPUT = "internal-output";
     private static final String VISUM_PATH = "visum-path";
