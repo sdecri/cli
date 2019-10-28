@@ -3,52 +3,27 @@
  */
 package com.sdc.cli.reader;
 
-import com.sdc.cli.OptionsProviderImplOld;
+import java.util.List;
 
 public class Context {
 
-    private String internalOutputPath;
-    private String visumBasePath;
-    private String outputDir;
+    private String stringPar;
+    private int intPar;
+    private List<Integer> listPar;
     
-    /**
-    * {@inheritDoc}
-    */
-    @Override
-    public String toString() {
-    
-        return String.format("%s: %s, %s: %s"
-                , OptionsProviderImplOld.INTERNAL_OUTPUT, internalOutputPath
-                , OptionsProviderImplOld.VISUM_PATH, visumBasePath
-                );
-                
+    public String getStringPar() {
         
+        return stringPar;
     }
-    
-    /**
-     * @return the {@link Context#internalOutputPath}
-     */
-    public String getInternalOutputPath() {
-    
-        return internalOutputPath;
-    }
-    
 
-    /**
-     * @return the {@link Context#visumBasePath}
-     */
-    public String getVisumBasePath() {
-    
-        return visumBasePath;
+    public int getIntPar() {
+        
+        return intPar;
     }
+
+    public List<Integer> getListPar() {
     
-    
-    /**
-     * @return the {@link Context#outputDir}
-     */
-    public String getOutputDir() {
-    
-        return outputDir;
+        return listPar;
     }
     
     public static Context.Builder newBuilder() {
@@ -63,18 +38,18 @@ public class Context {
             context = new Context();
         }
         
-        public Context.Builder withInternalOutputPath(String internalOutputPath) {
-            context.internalOutputPath = internalOutputPath;
+        public Context.Builder withStringPar(String stringPar) {
+            context.stringPar = stringPar;
             return this;
         }
         
-        public Context.Builder withVisumBasePath(String visumBasePath) {
-            context.visumBasePath = visumBasePath;
+        public Context.Builder withIntPar(int intPar) {
+            context.intPar = intPar;
             return this;
         }
-        
-        public Context.Builder withOutputDir(String outputDir) {
-            context.outputDir = outputDir;
+
+        public Context.Builder withListPar(List<Integer> listPar) {
+            context.listPar = listPar;
             return this;
         }
         
@@ -82,9 +57,5 @@ public class Context {
             return context;
         }
     }
-
-
-    
-    
 
 }

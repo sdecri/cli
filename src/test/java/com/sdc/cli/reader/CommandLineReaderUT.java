@@ -4,8 +4,10 @@
 package com.sdc.cli.reader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
@@ -22,32 +24,29 @@ import static org.hamcrest.Matchers.*;
  */
 public class CommandLineReaderUT {
 
-    private static final String INTERNAL_OUTPUT = "internal-output";
-    private static final String VISUM_PATH = "visum-path";
-    private static final String OUTPUT_DIR = "output-dir";
-    private static final String PARAM_PREFIX = "--";
-    
     @Test
     public void testRead() throws ParseException {
         
         CommandLineReader<Context> cli = new CommandLineReaderImpl(getOptions(), "test", "help message");
         Optional<Context> contextOp = cli.read(new String[] {
-                PARAM_PREFIX + INTERNAL_OUTPUT, "io"
-                , PARAM_PREFIX + VISUM_PATH, "vp"
-                , PARAM_PREFIX + OUTPUT_DIR, "od" 
+                "--string-par", "foo"
+                , "--int-par", "1"
+                , "--list-par", "1"
+                , "--list-par", "2"
         });
         
         assertThat(contextOp.isPresent(), is(true));
-        assertThat(contextOp.get().getInternalOutputPath(), is(equalTo("io")));
-        assertThat(contextOp.get().getVisumBasePath(), is(equalTo("vp")));
-        assertThat(contextOp.get().getOutputDir(), is(equalTo("od")));
+        assertThat(contextOp.get().getStringPar(), is(equalTo("foo")));
+        assertThat(contextOp.get().getIntPar(), is(equalTo(1)));        
+        assertThat(contextOp.get().getListPar(), hasSize(2));
+        assertThat(contextOp.get().getListPar(), contains(1,2));
     }
     
     @Test
     public void testHelp() throws ParseException {
         
         CommandLineReader<Context> cli = new CommandLineReaderImpl(getOptions(), "test", "help message");
-        Optional<Context> contextOp = cli.read(new String[] {"-h", PARAM_PREFIX + INTERNAL_OUTPUT, "io"});
+        Optional<Context> contextOp = cli.read(new String[] {"-h", "--string-par", "foo"});
         
         assertThat(contextOp.isPresent(), is(false));
     }
@@ -55,13 +54,6 @@ public class CommandLineReaderUT {
     
     class CommandLineReaderImpl extends CommandLineReader<Context>{
 
-
-
-        /**
-         * @param options
-         * @param commandName
-         * @param helpMessage
-         */
         public CommandLineReaderImpl(Options options, String commandName, String helpMessage) {
             super(options, commandName, helpMessage);
         }
@@ -73,9 +65,9 @@ public class CommandLineReaderUT {
         public Context createContext(CommandLine cli) {
 
           return Context.newBuilder()
-          .withInternalOutputPath(cli.getOptionValue(INTERNAL_OUTPUT))
-          .withVisumBasePath(cli.getOptionValue(VISUM_PATH))
-          .withOutputDir(cli.getOptionValue(OUTPUT_DIR, ""))
+          .withStringPar(cli.getOptionValue("string-par"))
+          .withIntPar(Integer.parseInt(cli.getOptionValue("int-par", "0")))
+          .withListPar(Arrays.asList(cli.getOptionValues(("list-par"))).stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList()))
           .build();
             
         }
@@ -88,41 +80,31 @@ public class CommandLineReaderUT {
         
         optionList.add(
                 Option.builder()
-                .longOpt(INTERNAL_OUTPUT)
+                .longOpt("string-par")
                 .hasArg(true)
-                .desc("Path of the internal output")
+                .desc("String parameter")
+                .type(String.class)
+                .required(true)
+                .build()
+                );
+        optionList.add(
+                Option.builder()
+                .longOpt("int-par")
+                .hasArg(true)
+                .desc(String.format("Integer parameter"))
                 .type(String.class)
                 .required(false)
                 .build()
                 );
         optionList.add(
                 Option.builder()
-                .longOpt(VISUM_PATH)
+                .longOpt("list-par")
                 .hasArg(true)
-                .desc(String.format("Path of visum output"))
+                .desc(String.format("List parameter"))
                 .type(String.class)
-                .required(false)
+                .required(true)
                 .build()
                 );
-        optionList.add(
-                Option.builder()
-                .longOpt(OUTPUT_DIR)
-                .hasArg(true)
-                .desc(String.format("Output directory. Default current dir"))
-                .type(String.class)
-                .required(false)
-                .build()
-                );
-//        optionList.add(
-//                Option.builder()
-//                .longOpt(TILE_DIAG_NAME)
-//                .hasArg(true)
-//                .desc(String.format("Diagonal of each tile. DEfault: %d", TILE_DIAG_DEFAULT))
-//                .type(String.class)
-//                .required(false)
-//                .build()
-//                );
-
         
         
         
