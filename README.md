@@ -1,6 +1,8 @@
 # Cli
 This utility allows to read command line parameters in a smart way. There are two possible way to read and manage command line parameters: simple **reader** and **manager** way. It is based on the apache [commons-cli](https://commons.apache.org/proper/commons-cli/) library.
 
+[![](https://jitpack.io/v/sdecri/cli.svg)](https://jitpack.io/#sdecri/cli)
+
 ## Reader
 Create a "Context" class
 ```java
