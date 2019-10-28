@@ -32,6 +32,7 @@ public class CommandLineManagerUT {
         }
         , "com.sdc.cli.manager.parameter");
         
+        System.out.println(clm.getCurrentConfigParameterMessage());
         
         assertThat(clm.getParameterValue(FakeIntegerParameter.class), is(equalTo(10)));
         assertThat(clm.getParameterValue(FakeStringParameter.class), is(equalTo("string-param")));

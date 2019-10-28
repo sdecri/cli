@@ -2,11 +2,8 @@ package com.sdc.cli.manager;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -31,7 +28,8 @@ import com.sdc.cli.reader.CommandLineReader;
 public class CommandLineManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(CommandLineManager.class);
-    public static final String PRINT_PARAMETERS_SEPARATOR = "  ";
+    public static final String PRINT_PARAMETERS_SEPARATOR = " -> ";
+    public static final String NEW_LINE = System.getProperty("line.separator");
 
     private String commandName;
     private String helpMessage;
@@ -202,29 +200,40 @@ public class CommandLineManager {
     }
 
 
+
+//    public String getCurrentConfigParameterMessage(String separator) {
+//        
+//        StringBuilder sb = new StringBuilder("Service was called with the following CLI params:").append(separator);
+//        Set<String> processedOptions = new HashSet<>();
+//        for (Option option : cli.getOptions()) {
+//            if (!processedOptions.contains(option.getLongOpt())) {
+//                processedOptions.add(option.getLongOpt());
+//                if (option.hasArg()) {
+//
+//                    String[] values = cli.getOptionValues(option.getLongOpt());
+//                    for (String value : values) {
+//                        sb.append(String.format("'%s':'%s'", option.getLongOpt(), value)).append(separator);
+//                    }
+//
+//                }
+//                else
+//                    sb.append(String.format("'%s':'%s'", option.getLongOpt(), "")).append(separator);
+//                
+//            }
+//
+//		}
+//        return sb.toString();
+//    }
+    
     public String getCurrentConfigParameterMessage() {
         
         String separator = PRINT_PARAMETERS_SEPARATOR;
         
-        StringBuilder sb = new StringBuilder("Service was called with the following CLI params:").append(separator);
-        Set<String> processedOptions = new HashSet<>();
+        StringBuilder sb = new StringBuilder("Service was called with the following CLI params:").append(NEW_LINE).append(NEW_LINE);
         for (Option option : cli.getOptions()) {
-            if (!processedOptions.contains(option.getLongOpt())) {
-                processedOptions.add(option.getLongOpt());
-                if (option.hasArg()) {
-
-                    String[] values = cli.getOptionValues(option.getLongOpt());
-                    for (String value : values) {
-                        sb.append(String.format("'%s':'%s'", option.getLongOpt(), value)).append(separator);
-                    }
-
-                }
-                else
-                    sb.append(String.format("'%s':'%s'", option.getLongOpt(), "")).append(separator);
-                
-            }
-
-		}
+            String valueString = option.hasArg() ? String.join(",", option.getValuesList()) : "";
+            sb.append(String.format("'%s'%s'%s'", option.getLongOpt(), separator, valueString)).append(NEW_LINE);
+        }
         return sb.toString();
     }
 

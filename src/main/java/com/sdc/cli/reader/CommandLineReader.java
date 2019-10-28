@@ -124,7 +124,7 @@ public abstract class CommandLineReader<C> {
         
         String separator = PRINT_PARAMETERS_SEPARATOR;
         
-        StringBuilder sb = new StringBuilder("Service was called with the following CLI params:").append(NEW_LINE).append(NEW_LINE);
+        StringBuilder sb = new StringBuilder("Service was called with the following CLI params:").append(NEW_LINE);
         for (Option option : cli.getOptions()) {
             String valueString = option.hasArg() ? String.join(",", option.getValuesList()) : "";
             sb.append(String.format("'%s'%s'%s'", option.getLongOpt(), separator, valueString)).append(NEW_LINE);
