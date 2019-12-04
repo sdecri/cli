@@ -58,17 +58,24 @@ public class CommandLineManager {
     }
     
     public CommandLineManager(String commandName, String helpMessage, String[] arguments, OptionsProvider optionsProvider) throws CommandLineManagerException {
-    	
+        
+        this(commandName, helpMessage, arguments, optionsProvider.getOptions());
+
+
+    }
+    
+    public CommandLineManager(String commandName, String helpMessage, String[] arguments, List<? extends Parameterizable> parameters) throws CommandLineManagerException {
+        
         this.commandName = commandName;
         this.helpMessage = helpMessage;
         this.commandLineParser = new DefaultParser();
         this.arguments = arguments;
 
-        List<? extends Parameterizable> parameters = optionsProvider.getOptions();
         initInternal(parameters);
         read();
 
     }
+
 
     
     private void initInternal(List<? extends Parameterizable> parameters) {
