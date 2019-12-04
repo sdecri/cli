@@ -75,6 +75,12 @@ public class CommandLineManager {
         read();
 
     }
+    
+    public CommandLineManager(OptionsProvider optionsProvider, String...arguments) throws CommandLineManagerException {
+        
+        this("command", "", arguments, optionsProvider);
+
+    }
 
 
     
