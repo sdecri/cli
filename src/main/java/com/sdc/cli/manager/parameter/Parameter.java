@@ -12,14 +12,7 @@ import org.apache.commons.cli.Option;
  */
 public abstract class Parameter<T> implements Parameterizable<T> {
 
-    protected boolean isRequired;
-    
-    /**
-     * 
-     */
-    public Parameter() {
-        
-    }
+    public Parameter() {}
 
 
     public Option createOption() {
@@ -29,10 +22,20 @@ public abstract class Parameter<T> implements Parameterizable<T> {
                     .hasArg(hasArg())
                     .desc(getDescription())
                     .type(getOptionType())
-                    .required(false)
+                    .required(isRequired())
                     .build();
     }
 
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public boolean isRequired() {
+    
+        return false;
+        
+    }
+    
     /**
     * {@inheritDoc}
     */

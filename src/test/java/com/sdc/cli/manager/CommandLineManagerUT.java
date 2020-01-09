@@ -8,6 +8,7 @@ import org.junit.Test;
 import com.sdc.cli.manager.parameter.FakeArrayParameter;
 import com.sdc.cli.manager.parameter.FakeIntegerParameter;
 import com.sdc.cli.manager.parameter.FakeStringParameter;
+import com.sdc.cli.manager.parameter.RequiredParameter;
 
 import static org.junit.Assert.*;
 
@@ -54,4 +55,43 @@ public class CommandLineManagerUT {
         assertThat(clm.hasHelp(), is(true));
         
     }
+    
+    @Test
+    public void testRequired() throws CommandLineManagerException {
+        
+        CommandLineManager clm = new CommandLineManager("test", "help message", new String[] {
+                "--" + new RequiredParameter().getLongOpt(), "required-param-value"
+        }
+        , "com.sdc.cli.manager.parameter");
+        
+        System.out.println(clm.getCurrentConfigParameterMessage());
+        
+        assertThat(clm.getParameterValue(RequiredParameter.class), is(equalTo("required-param-value")));
+        assertThat(clm.hasParameter(RequiredParameter.class), is(true));
+        
+        Exception ex = null;
+        try {
+            clm = new CommandLineManager("test", "help message", new String[] {}
+            , "com.sdc.cli.manager.parameter");    
+        }
+        catch (Exception e) {
+            ex = e;
+        }
+        assertThat(ex.getClass(), is(equalTo(CommandLineManagerException.class)));
+        
+        
+        clm = new CommandLineManager("test", "help message", new String[] {"-h"
+                , "--" + new FakeStringParameter().getLongOpt(), "string-param"
+                
+        }
+        , "com.sdc.cli.manager.parameter");    
+
+    }
+    
+    
+    
+    
+    
+    
+    
 }

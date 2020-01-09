@@ -30,4 +30,6 @@ public interface Parameterizable<T> {
     public T getDefaultValue();
  
     public boolean isValid(T value);
+    
+    public boolean isRequired();
 }
