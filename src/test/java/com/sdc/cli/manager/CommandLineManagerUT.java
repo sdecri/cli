@@ -26,7 +26,8 @@ public class CommandLineManagerUT {
     public void testRead() throws CommandLineManagerException {
         
         CommandLineManager clm = new CommandLineManager("test", "help message", new String[] {
-                "--" + new FakeIntegerParameter().getLongOpt(), "10"
+                "--" + new RequiredParameter().getLongOpt(), "required-param-value"
+                , "--" + new FakeIntegerParameter().getLongOpt(), "10"
                 , "--" + new FakeStringParameter().getLongOpt(), "string-param"
                 , "--" + new FakeArrayParameter().getLongOpt(), "1"
                 , "--" + new FakeArrayParameter().getLongOpt(), "2"

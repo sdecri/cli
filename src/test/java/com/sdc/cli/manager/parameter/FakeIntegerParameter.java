@@ -15,6 +15,26 @@ public class FakeIntegerParameter extends Parameter<Integer>{
     * {@inheritDoc}
     */
     @Override
+    public String getFormattedDefault() {
+    
+        return Integer.toString(getDefaultValue());
+        
+    }
+    
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public Integer getDefaultValue() {
+    
+        return 1;
+        
+    }
+    
+    /**
+    * {@inheritDoc}
+    */
+    @Override
     public Class<?> getOptionType() {
 
         return Integer.class;
