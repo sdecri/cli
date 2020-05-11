@@ -15,6 +15,16 @@ public class FakeStringParameter extends Parameter<String>{
     * {@inheritDoc}
     */
     @Override
+    public String getDefaultValue() {
+    
+        return "default";
+        
+    }
+    
+    /**
+    * {@inheritDoc}
+    */
+    @Override
     public Class<?> getOptionType() {
 
         return String.class;

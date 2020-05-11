@@ -20,7 +20,7 @@ public abstract class Parameter<T> implements Parameterizable<T> {
             return Option.builder()
                     .longOpt(getLongOpt())
                     .hasArg(hasArg())
-                    .desc(getDescription())
+                    .desc(getDescsriptionWithDefaultValue())
                     .type(getOptionType())
                     .required(isRequired())
                     .build();
@@ -54,6 +54,27 @@ public abstract class Parameter<T> implements Parameterizable<T> {
     
         return true;
         
+    }
+    
+    public String getDescsriptionWithDefaultValue() {
+        
+        String description = getDescription();
+        StringBuilder sb = new StringBuilder(description);
+        if(getFormattedDefault() != null) {
+            if(!description.endsWith("."))
+                sb.append(".");
+            sb.append(" Default: ").append(getFormattedDefault());
+        }
+        else if(getDefaultValue() != null) {
+            if(!description.endsWith("."))
+                sb.append(".");
+            sb.append(" Default: ").append(getDefaultValue());
+        }
+        return sb.toString();
+    }
+    
+    public String getFormattedDefault() {
+        return null;
     }
 
     /**
