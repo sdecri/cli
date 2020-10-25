@@ -78,12 +78,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.sdecri</groupId>
-            <artifactId>file-utils</artifactId>
-            <version>${version.fileutils}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
             <version>${version.reflections}</version>
