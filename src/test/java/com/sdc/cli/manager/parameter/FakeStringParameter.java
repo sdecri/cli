@@ -3,13 +3,13 @@
  */
 package com.sdc.cli.manager.parameter;
 
-import java.util.function.Function;
+import com.sdc.cli.manager.parameter.template.ParameterString;
 
 /**
  * @author Simone De Cristofaro
  * Oct 17, 2019
  */
-public class FakeStringParameter extends Parameter<String>{
+public class FakeStringParameter extends ParameterString{
 
     /**
     * {@inheritDoc}
@@ -51,14 +51,5 @@ public class FakeStringParameter extends Parameter<String>{
         
     }
 
-    /**
-    * {@inheritDoc}
-    */
-    @Override
-    public Function<String[], String> getParsingFunction() {
-
-        return s -> s[0];
-        
-    }
 
 }
