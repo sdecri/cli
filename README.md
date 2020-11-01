@@ -141,51 +141,6 @@ public static void main(String[] args)[
 ## Manager
 Create the parameters extending the "Parameter" class
 ```java
-public class FakeIntegerParameter extends Parameter<Integer>{
-
-    /**
-    * {@inheritDoc}
-    */
-    @Override
-    public Class<?> getOptionType() {
-
-        return Integer.class;
-        
-    }
-
-    /**
-    * {@inheritDoc}
-    */
-    @Override
-    public String getDescription() {
-
-        return "fake integer parameter";
-        
-    }
-
-    /**
-    * {@inheritDoc}
-    */
-    @Override
-    public String getLongOpt() {
-
-        return "fake-integer-parameter";
-        
-    }
-
-    /**
-    * {@inheritDoc}
-    */
-    @Override
-    public Function<String[], Integer> getParsingFunction() {
-
-        return s -> Integer.parseInt(s[0]);
-        
-    }
-
-}
-```
-```java
 public class FakeStringParameter extends Parameter<String>{
 
     /**
@@ -268,6 +223,42 @@ public class FakeArrayParameter extends Parameter<List<Integer>>{
     public Function<String[], List<Integer>> getParsingFunction() {
 
         return array-> Arrays.asList(array).stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
+        
+    }
+
+}
+```
+You can also extend one of the available parameter template: ParameterString, ParameterInteger, ParameterDouble, ParameterFloat, ParameterBoolean, ParameterDuration, ParameterLocalDateTime and ParameterStrinList.
+```java
+public class FakeIntegerParameter extends ParameterInteger{
+
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public Class<?> getOptionType() {
+
+        return Integer.class;
+        
+    }
+
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public String getDescription() {
+
+        return "fake integer parameter";
+        
+    }
+
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public String getLongOpt() {
+
+        return "fake-integer-parameter";
         
     }
 
