@@ -17,6 +17,26 @@ public abstract class ParameterBoolean extends Parameter<Boolean>{
     * {@inheritDoc}
     */
     @Override
+    public Class<?> getOptionType() {
+    
+        return boolean.class;
+        
+    }
+    
+    /**
+    * {@inheritDoc}
+    */
+    @Override
+    public boolean hasArg() {
+    
+        return false;
+        
+    }
+    
+    /**
+    * {@inheritDoc}
+    */
+    @Override
     public Function<String[], Boolean> getParsingFunction() {
     
         return new Function<String[], Boolean>() {

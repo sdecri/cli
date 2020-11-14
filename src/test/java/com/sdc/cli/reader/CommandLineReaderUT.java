@@ -33,6 +33,7 @@ public class CommandLineReaderUT {
                 , "--int-par", "1"
                 , "--list-par", "1"
                 , "--list-par", "2"
+                , "--boolean-par"
         });
         
         assertThat(contextOp.isPresent(), is(true));
@@ -40,6 +41,7 @@ public class CommandLineReaderUT {
         assertThat(contextOp.get().getIntPar(), is(equalTo(1)));        
         assertThat(contextOp.get().getListPar(), hasSize(2));
         assertThat(contextOp.get().getListPar(), contains(1,2));
+        assertThat(contextOp.get().isBoolPar(), is(true));
     }
     
     @Test
@@ -68,6 +70,7 @@ public class CommandLineReaderUT {
           .withStringPar(cli.getOptionValue("string-par"))
           .withIntPar(Integer.parseInt(cli.getOptionValue("int-par", "0")))
           .withListPar(Arrays.asList(cli.getOptionValues(("list-par"))).stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList()))
+          .withBoolPar(cli.hasOption("boolean-par"))
           .build();
             
         }
@@ -102,6 +105,15 @@ public class CommandLineReaderUT {
                 .hasArg(true)
                 .desc(String.format("List parameter"))
                 .type(String.class)
+                .required(true)
+                .build()
+                );
+        optionList.add(
+                Option.builder()
+                .longOpt("boolean-par")
+                .hasArg(false)
+                .desc(String.format("Boolean parameter"))
+                .type(boolean.class)
                 .required(true)
                 .build()
                 );
